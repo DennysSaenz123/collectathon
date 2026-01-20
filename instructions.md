@@ -72,11 +72,8 @@ We will now artificially trigger a merge conflict. When we follow good git pract
 
 1. Have BOTH Partner A and Partner B edit the below line (here in instructions.md, remembering to switch to edit mode if needed). Each person should make it say something different.
     ```
-<<<<<<< HEAD
     I LIKE COOKIES
-=======
     weeble wibble wobble
->>>>>>> 0e3fbfff0aa7ccd90a1cea9e42d643bdb4a61d90
     ```
 1. Have BOTH Partner A and Partner B add, commit, and push the changes. You can refer to the above steps for a refresher on how to add/commit/push. One of the partners will get an error saying that their changes can't be pushed. This is OK and expected. Today we are practicing how to resolve this error.
 1. Have the error partner pull the other partner's changes:
