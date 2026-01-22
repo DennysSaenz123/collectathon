@@ -21,26 +21,11 @@ static constexpr bn::fixed SPEED = 1.25;
 static constexpr bn::fixed DIAG_SPEED = SPEED * bn::degrees_cos(45);
 
 // Boosted speed 
+static constexpr bn::fixed BOOST_SPEED = SPEED * 2;
 
-static constexpr bn:fixed BOOST_SPEED = SPEED * 2;
-
-//Boost boundaries
-
+// Boost boundaries
 static constexpr int MAX_BOOSTS = 3;
 static constexpr int BOOST_DURATION_FRAMES = 120;
-
-//Variables for speed boost 
-int player_speed = SPEED;
-
-bn_fixed(payer_speed);
-
-int boosts_left = MAX_BOOSTS;
-
-bn_fixed(boosts_left);
-
-int boost_timer = 0;
-bool boost_active = false;
-
 
 // Width and height of the the player and treasure bounding boxes
 static constexpr bn::size PLAYER_SIZE = {8, 8};
@@ -78,6 +63,10 @@ int main()
     bn::sprite_text_generator text_generator(common::fixed_8x16_sprite_font);
 
     int score = 0;
+
+    // Boost variables
+    int boosts_left = MAX_BOOSTS;
+    int boost_timer = 0;
 
     bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_X, PLAYER_Y);
     bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_X, TREASURE_Y);
@@ -121,25 +110,52 @@ int main()
         {
             player.set_y(player.y() + SPEED);
         }
+
         //Boost activation 
-        if(bn::keypad::a_pressed() && boosts_left > 0 && !boost_active)
+        if(bn::keypad::a_pressed() && boosts_left > 0)
         {
-            boost_active = true;
             boost_timer = BOOST_DURATION_FRAMES;
-            player_speed = BOOST_SPEED;
             boosts_left--;
         }
-        //When boost is active 
-        if(boost_active)
-        {
-            --boost_timer;
 
-            if(boost_timer <= 0)
-            {
-                boost_active = false;
-                player_speed = SPEED;
+        //When boost is active 
+        if (boost_timer > 0) {
+            if (bn::keypad::left_held() && bn::keypad::up_held()) {
+                player.set_x(player.x() - DIAG_SPEED);
+                player.set_y(player.y() - DIAG_SPEED);
             }
+            else if (bn::keypad::right_held() && bn::keypad::up_held()) {
+                player.set_x(player.x() + DIAG_SPEED);
+                player.set_y(player.y() - DIAG_SPEED);
+            }
+            else if (bn::keypad::left_held() && bn::keypad::down_held()) {
+                player.set_x(player.x() - DIAG_SPEED);
+                player.set_y(player.y() + DIAG_SPEED);
+            }
+            else if (bn::keypad::right_held() && bn::keypad::down_held()) {
+                player.set_x(player.x() + DIAG_SPEED);
+                player.set_y(player.y() + DIAG_SPEED);
+            }
+
+            // Single key presses
+            else if (bn::keypad::left_held()) {
+                player.set_x(player.x() - SPEED);
+            }
+            else if (bn::keypad::right_held()) {
+                player.set_x(player.x() + SPEED);
+            }
+                else if (bn::keypad::up_held()) {
+                player.set_y(player.y() - SPEED);
+            }
+            else if (bn::keypad::down_held()) {
+                player.set_y(player.y() + SPEED);
+            }
+
+            // decrement timer
+            boost_timer--;
         }
+
+        
 
         // Send player to the other side of the screen if the player crosses over the edge
         if (player.x() < MIN_X || player.x() > MAX_X) {
@@ -181,9 +197,7 @@ int main()
 
             //Reset boost 
             boosts_left = MAX_BOOSTS;
-            boost_active = false;
             boost_timer = 0;
-            player_speed = SPEED;
         }
 
         // Update score display
