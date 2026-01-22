@@ -121,6 +121,16 @@ int main()
             score++;
         }
 
+        if(bn::keypad::start_pressed())
+        {
+            // Reset positions
+            player.set_position(PLAYER_X, PLAYER_Y);
+            treasure.set_position(TREASURE_X, TREASURE_Y);
+
+            // Reset score
+            score = 0;
+        }
+
         // Update score display
         bn::string<MAX_SCORE_CHARS> score_string = bn::to_string<MAX_SCORE_CHARS>(score);
         score_sprites.clear();
