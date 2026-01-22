@@ -9,9 +9,8 @@
 #include <bn_size.h>
 #include <bn_string.h>
 #include <bn_math.h>
-
-#include "bn_sprite_items_dot.h"
-#include "bn_sprite_items_square.h"
+#include "bn_sprite_items_treasure_chest.h"
+#include "bn_sprite_items_hand_pointer.h"
 #include "common_fixed_8x16_font.h"
 #include <bn_backdrop.h>
 #include <bn_color.h>
@@ -56,7 +55,7 @@ int main()
 {
     bn::core::init();
 
-    bn::backdrop::set_color(bn::color(20, 0, 0));
+    bn::backdrop::set_color(bn::color(25, 25, 25));
 
     bn::random rng = bn::random();
 
@@ -70,8 +69,8 @@ int main()
     int boosts_left = MAX_BOOSTS;
     int boost_timer = 0;
 
-    bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_X, PLAYER_Y);
-    bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_X, TREASURE_Y);
+    bn::sprite_ptr player = bn::sprite_items::hand_pointer.create_sprite(PLAYER_X, PLAYER_Y);
+    bn::sprite_ptr treasure = bn::sprite_items::treasure_chest.create_sprite(TREASURE_X, TREASURE_Y);
 
     while (true)
     {
