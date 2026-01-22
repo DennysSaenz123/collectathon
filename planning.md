@@ -20,8 +20,10 @@ The square and dot spawn at the same location for the first time.
 Change Player and treasure sprites and also add a timer
 
 ## Brainstorming game ideas
+
 Put obsatcles in the game 
+
 ## Plan for implementing game
 
-Kevin will modify sprites using Sprite Editor and i will add a timer next to the score tracker
+Kevin will modify sprites using Sprite Editor and I will add custom sound effects when collecting treasure.
 
