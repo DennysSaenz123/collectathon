@@ -15,6 +15,8 @@
 #include "common_fixed_8x16_font.h"
 #include <bn_backdrop.h>
 #include <bn_color.h>
+#include "bn_sound_items.h"
+
 
 // Pixels / Frame player moves at
 static constexpr bn::fixed SPEED = 1.25;
@@ -178,6 +180,10 @@ int main()
         // If the bounding boxes overlap, set the treasure to a new location an increase score
         if (player_rect.intersects(treasure_rect))
         {
+
+            // Play treasure sound
+            bn::sound_items::cure.play();
+
             // Jump to any random point in the screen
             int new_x = rng.get_int(MIN_X, MAX_X);
             int new_y = rng.get_int(MIN_Y, MAX_Y);
