@@ -24,6 +24,12 @@ static constexpr bn::fixed DIAG_SPEED = SPEED * bn::degrees_cos(45);
 static constexpr bn::size PLAYER_SIZE = {8, 8};
 static constexpr bn::size TREASURE_SIZE = {8, 8};
 
+// Starting position of player and treasure
+static constexpr bn::fixed PLAYER_X = -25;
+static constexpr bn::fixed PLAYER_Y = -25;
+static constexpr bn::fixed TREASURE_X = 25;
+static constexpr bn::fixed TREASURE_Y = 25;
+
 // Full bounds of the screen
 static constexpr int MIN_Y = -bn::display::height() / 2;
 static constexpr int MAX_Y = bn::display::height() / 2;
