@@ -57,8 +57,8 @@ int main()
 
     int score = 0;
 
-    bn::sprite_ptr player = bn::sprite_items::square.create_sprite(-50, 50);
-    bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(0, 0);
+    bn::sprite_ptr player = bn::sprite_items::square.create_sprite(PLAYER_X, PLAYER_Y);
+    bn::sprite_ptr treasure = bn::sprite_items::dot.create_sprite(TREASURE_X, TREASURE_Y);
 
     while (true)
     {
